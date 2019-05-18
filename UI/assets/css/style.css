@@ -111,6 +111,9 @@ footer{
 	}
 
 
+
+
+
 }
 
 
@@ -131,7 +134,7 @@ footer{
 
 #login .signin table{
 	margin:100px auto;
-	width: 400px;
+	width: auto;
 }
 
 
