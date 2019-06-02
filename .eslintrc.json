@@ -13,6 +13,6 @@
         "sourceType": "module"
     },
     "rules": {   
-    }
+    },
     "parser": "babel-eslint" 
 }
