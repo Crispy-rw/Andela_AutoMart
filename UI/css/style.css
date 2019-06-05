@@ -152,3 +152,91 @@ footer{
 	font: 15px/1.5 Arial, Helvetica, sans-serif ;
 	text-align: center;
 }
+
+/*Sign Ip page*/
+
+#section-1-1{
+	width: 70%;
+	margin:auto auto;
+	overflow-x: scroll;
+
+}
+
+
+.signin{
+	min-height: 498px;
+	min-width: 250px;
+	background-color: rgba(84, 88, 92, 0.4);
+	border-radius: 10px;
+	border:1px solid #CCCCCC;
+}
+
+
+#section-1-1 .signin table{
+	margin:60px auto;
+	width: auto;
+}
+
+
+#section-1-1 .signin table tr td{
+	height: 48px;
+}
+
+#section-1-1 .signin  input[type="text"],
+#section-1-1 .signin  input[type="Password"],
+#section-1-1 .signin  input[type="submit"]{
+	display: block;
+    width: 100%;
+    height: 80%;
+    border-radius: 7px;
+    border:1px solid #CCCCCC;
+    font-size: 20px;
+
+}
+
+#section-1-1 .signin  table  span{
+	font: 15px/1.5 Arial, Helvetica, sans-serif ;
+	text-align: center;
+}
+
+
+
+@media(max-width: 768px){
+
+	header #branding,
+	header nav,
+	header nav li
+	{
+		float: none;
+		text-align: center;
+		width: 100%;
+	}
+
+	header{
+		padding-bottom: 20px;
+	}
+
+
+	#section-1{
+		overflow-x: scroll;
+	}
+
+	#section-1 .signup  input[type="text"],
+	#section-1 .signup  input[type="Password"],
+	#section-1 .signup  input[type="submit"]{
+		display: block;
+	    width: 70%;
+	    height: 80%;
+	    border-radius: 10px;
+	    border:1px solid black;
+	    font-size: 20px;
+
+		}
+
+		/*Sign up page*/
+		#section-1-1{
+		overflow-x: scroll;
+	}
+
+
+}
