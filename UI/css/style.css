@@ -73,6 +73,44 @@ footer{
 	text-align: center;
 }
 
+
+@media(max-width: 768px){
+
+	header #branding,
+	header nav,
+	header nav li
+	{
+		float: none;
+		text-align: center;
+		width: 100%;
+	}
+
+	header{
+		padding-bottom: 20px;
+	}
+
+
+	#section-1{
+		overflow-x: scroll;
+	}
+
+	#section-1 .signup  input[type="text"],
+	#section-1 .signup  input[type="Password"],
+	#section-1 .signup  input[type="submit"]{
+		display: block;
+	    width: 70%;
+	    height: 80%;
+	    border-radius: 10px;
+	    border:1px solid black;
+	    font-size: 20px;
+
+		}
+
+
+
+}
+
+
 #section-1{
 	width: 60%;
 	margin:auto auto;
@@ -199,5 +237,6 @@ footer{
 		#section-1-1{
 		overflow-x: scroll;
 	}
+
 
 }
