@@ -41,7 +41,10 @@ const signup = (req, res) => {
 
   const password = bcrypt.hashSync(req.body.password, 10);
 
+  const id = parseInt(users.length + 1, 10);
+
   const newUser = {
+    id,
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     email: req.body.email,
@@ -50,8 +53,6 @@ const signup = (req, res) => {
   };
 
   users.push(newUser);
-
-  const id = parseInt(users.length + 1, 10);
 
   res.status(201).json({
     status: 201,
