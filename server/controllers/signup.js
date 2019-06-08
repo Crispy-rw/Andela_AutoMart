@@ -30,7 +30,12 @@ const signup = (req, res) => {
     return;
   }
 
+  var _id = 0;
+  if(users.length == 0)  _id = 1;
+  else  _id = parseInt(users.length + 1, 10);
+
   const payload = {
+    id:_id,
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     email: req.body.email,
@@ -41,7 +46,9 @@ const signup = (req, res) => {
 
   const password = bcrypt.hashSync(req.body.password, 10);
 
+  
   const newUser = {
+    id:_id,
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     email: req.body.email,
@@ -51,13 +58,12 @@ const signup = (req, res) => {
 
   users.push(newUser);
 
-  const id = parseInt(users.length + 1, 10);
 
   res.status(201).json({
     status: 201,
     data: {
       token,
-      id,
+      id:_id,
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       email: req.body.email,
