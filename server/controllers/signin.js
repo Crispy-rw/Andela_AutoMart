@@ -42,6 +42,7 @@ const userLogin = (req, res) => {
   }
 
   const loginPayload = {
+    id: checkUser.id,
     first_name: checkUser.first_name,
     last_name: checkUser.last_name,
     email: checkUser.email,

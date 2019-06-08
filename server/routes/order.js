@@ -1,10 +1,10 @@
 import express from 'express';
-import newVehicle from '../controllers/carpost';
+import neworder from '../controllers/order';
 import auth from '../middleware/authorization';
 
 
 const router = express.Router();
 
-router.post('/', auth, newVehicle);
+router.post('/', auth, neworder);
 
 export default router;
