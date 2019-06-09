@@ -24,19 +24,21 @@ const newCarPost = (req, res) => {
     });
   }
 
-
-  const carId = parseInt(carPost.length + 1, 10);
+  var _id = 0;
+  if(carPost.length == 0)  _id = 1;
+  else  _id = parseInt(carPost.length + 1, 10);
 
 
   const newVehicle = {
-    id: carId,
+    id: _id,
     owner: req.user.id,
     created_on: moment().format('LL'),
     state: req.body.state,
+    status: "available",
     price: req.body.price,
     manufacturer: req.body.manufacturer,
     model: req.body.model,
-    body_type: req.body.bodytype,
+    body_type: req.body.bodyType,
   };
 
   carPost.push(newVehicle);
