@@ -1,7 +1,7 @@
-import order from '../models/orders';
-import users from '../models/signup';
 import orderValidation from '../helpers/order';
-import car from '../models/car';
+import cars from '../models/car';
+import orders from '../models/orders';
+
 
 
 const newPurchaseOrder = (req, res) => {
@@ -14,30 +14,39 @@ const newPurchaseOrder = (req, res) => {
          });
     }
 
-    const checkCar = car.find(car => car.id === req.body.car_id);
+    const __id = parseInt(req.body.car_id);
+
+    const checkCar = cars.find(o => o.id == __id );
+
 
         if( !checkCar ){
             return res.status(400).json({
                 status:400,
-                error: "Vehicle does not exist"
+                error: "Vehicle not found"
             });
         }
 
 
-    const orderId = parseInt(car.length + 1,10);
-
     const newOrder = {
-        id:orderId,
+        id: parseInt(orders.length + 1,5),
         buyer:req.user.id,
         car_id:req.body.car_id,
         amount: req.body.amount,
         status: req.body.status,
     }
  
-    order.push(newOrder);
-
-    console.log(newOrder);
+    orders.push(newOrder);
     
+    return res.status(200).json({
+        status:200,
+        data:{
+            id: newOrder.id,
+            buyer: req.user.id,
+            car_id: req.body.car_id,
+            price: parseFloat(checkCar.price),
+            price_offered: parseFloat(req.body.amount)
+        }
+    });   
 };
 
 export default newPurchaseOrder;
