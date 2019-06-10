@@ -5,6 +5,7 @@ import markSold from '../controllers/markasold';
 import updatePostedPrice from '../controllers/updatepostedprice';
 import ViewSingleCar from '../controllers/viewsinglecar';
 import viewAllUnsold from '../controllers/allunsold';
+import viewByRange from '../controllers/viewrange';
 
 
 const router = express.Router();
@@ -19,5 +20,6 @@ router.get('/:id/',auth, ViewSingleCar);
 
 router.get('/',auth,viewAllUnsold);
 
+// router.get('/all',viewByRange);
 
 export default router;
