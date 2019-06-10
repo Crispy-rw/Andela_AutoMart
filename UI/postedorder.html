@@ -30,9 +30,10 @@
       <nav>
         <ul>
           <li><a href="postcar.html" class="active">Post an Adv</a></li>
-          <li><a href="postedar.html">View posted add</a></li>
-          <li><a href="purchase.html">Make order</a></li>
-          <li><a href="flaud.html">FLagged vehicle</a></li>>
+          <li><a href="postedcar.html">View posted add</a></li>
+          <li><a href="purchase.html">Make my order</a></li>
+          <li><a href="postedorder.html">View my order</a></li>
+          <li><a href="flaud.html">FLagged vehicle</a></li>
         </ul>
       </nav>
 
@@ -49,9 +50,9 @@
       <center>
      <table class="tb" >
         <tr>
-          <td colspan="8">
+          <td colspan="9">
             <center>
-            <h2 class="title"> View posted car advertisement </h2>
+            <h2 class="title"> View posted order  </h2>
             </center></td>
         </tr>
         <tr>
@@ -61,7 +62,8 @@
         	<th>Manufacture</th>
         	<th>State</th>
         	<th>Body type</th>
-        	<th>State</th>
+        	<th>Status</th>
+          <th colspan="1">Action</th>
         	
         </tr>
         <tr>
@@ -71,7 +73,11 @@
           <td>2000 Frw</td>
           <td>Toyota</td>
           <td>Body type</td>
-          <td>Used</td>
+          <td><p style="color: green;">accepted</p></td>
+          <form action="./updateorder.html">          
+          <td><input type="submit"  value="edit" name="" disabled=""></td>
+          </form>
+          <td><input type="submit"  value="delete" onclick="return confirm('Do you really want to delete this car?');" name=""></td>
           
         </tr>
         <tr>
@@ -81,7 +87,11 @@
           <td>2000 Frw</td>
           <td>Toyota</td>
           <td>Body type</td>
-          <td>Used</td>
+          <form action="./updateorder.html">          
+          <td><p style="color: red;">Rejected</p></td>
+          </form>
+          <td><input type="submit"  value="edit"  name="" disabled=""></td>
+          <td><input type="submit"  value="delete" onclick="return confirm('Do you really want to delete this car?');" name=""></td>
           
         </tr>
         <tr>
@@ -91,7 +101,11 @@
           <td>2000 Frw</td>
           <td>Toyota</td>
           <td>Body type</td>
-          <td>Used</td>
+          <td><p style="color: black;">Pending</p></td>
+          <form action="./updateorder.html">          
+          <td><input type="submit"  value="edit"  name=""></td>
+          </form>
+          <td><input type="submit"  value="delete" onclick="return confirm('Do you really want to delete this car?');" name=""></td>
          
         </tr>
         <tr>
@@ -101,7 +115,11 @@
           <td>2000 Frw</td>
           <td>Toyota</td>
           <td>Body type</td>
-          <td>Used</td>
+          <td><p style="color: green;">accepted</p></td>
+          <form action="./updateorder.html">
+          <td><input type="submit"  value="edit" name="" disabled=""></td>
+          </form>
+          <td><input type="submit"  value="delete" onclick="return confirm('Do you really want to delete this car?');" name=""></td>
           
         </tr>
         <tr>
@@ -111,7 +129,11 @@
           <td>2000 Frw</td>
           <td>Toyota</td>
           <td>Body type</td>
-          <td>Used</td>
+          <td><p style="color: red;">rejected</p></td>
+          <form action="./updateorder.html">
+          <td><input type="submit"  value="edit" name="" disabled=""></td>
+          </form>
+          <td><input type="submit"  value="delete" onclick="return confirm('Do you really want to delete this car?');" name=""></td>
           
         </tr>
 
