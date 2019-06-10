@@ -6,7 +6,7 @@ const carpost = {
     const carPostValidation = {
 
       state: Joi.string().valid('new', 'used').required(),
-      price: Joi.number().required(),
+      price: Joi.number().integer().required(),
       manufacturer: Joi.string().required(),
       model: Joi.string().required(),
       bodyType: Joi.string().required(),
