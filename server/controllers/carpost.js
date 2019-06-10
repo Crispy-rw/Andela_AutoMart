@@ -51,7 +51,7 @@ const newCarPost = (req, res) => {
       created_on: moment().format('LL'),
       manufacturer: newVehicle.manufacturer,
       model: newVehicle.model,
-      price: newVehicle.price,
+      price: parseInt(newVehicle.price),
       state: newVehicle.state,
       status: newVehicle.status,
     },

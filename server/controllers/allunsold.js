@@ -12,12 +12,37 @@ const viewAllUnsold = (req, res) => {
         });
     }
 
-    const allUnsold = cars.filter(car => car.status === 'available');
 
-    res.status(200).json({
+    if(req.query.min_price == undefined && req.query.max_price == undefined){
+     
+        const allUnsold = cars.filter(car => car.status === 'available');
+
+            return res.status(200).json({
+                status:200,
+                data:{ allUnsold }
+            });
+
+    }
+
+
+    const min_price = req.query.min_price;
+    const max_price = req.query.max_price;
+
+    const selectedRange = [];
+       cars.forEach((item,index) =>{
+        
+         if((item.status === 'available') && (item.price > min_price && item.price < max_price)){
+            selectedRange.push(item);
+         }
+        });
+
+    return res.status(200).json({
         status:200,
-        data:{ allUnsold }
+        min_price: min_price,
+        max_price:max_price,
+        data:{ selectedRange }
     });
+
 
 }
 
