@@ -32,7 +32,7 @@ const newPostedPrice = (req, res) => {
         });
     }
 
-    checkPostedOrder.price = req.body.new_price;
+    checkPostedOrder.price = parseInt(req.body.new_price,10);
 
     return res.status(200).json({
         status:200,

@@ -26,9 +26,9 @@ const newOrderPrice = (req, res) => {
   }
 
   if(checkOrder.buyer !== req.user.id){
-    return res.status(400).json({
+    return res.status(403).json({
       status:400,
-      error: "You are not allowed to update this order"
+      error: "Forbidden Access"
     })
   }
 
@@ -43,8 +43,8 @@ const newOrderPrice = (req, res) => {
   }
 
 
-  const oldPriceOffered = parseInt(checkOrder.amount);
-  const newPriceOffered = parseInt(req.body.new_price);
+  const oldPriceOffered = parseInt(checkOrder.amount,10);
+  const newPriceOffered = parseInt(req.body.new_price,10);
 
   checkOrder.price = newPriceOffered;
 
