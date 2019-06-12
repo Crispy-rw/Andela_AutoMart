@@ -5,7 +5,9 @@ import carPost from '../models/car';
 
 
 const newCarPost = (req, res) => {
-  const { error } = carValidation.validation(req.body);
+  try{
+
+    const { error } = carValidation.validation(req.body);
 
   if (error) {
     return res.status(400).json({
@@ -20,7 +22,7 @@ const newCarPost = (req, res) => {
   if (!realUser) {
     return res.status(400).json({
       status: 400,
-      error: 'Invalid User',
+      error: 'Unauthorized access',
     });
   }
 
@@ -35,7 +37,7 @@ const newCarPost = (req, res) => {
     created_on: moment().format('LL'),
     state: req.body.state,
     status: "available",
-    price: req.body.price,
+    price: parseInt(req.body.price),
     manufacturer: req.body.manufacturer,
     model: req.body.model,
     body_type: req.body.bodyType,
@@ -56,6 +58,14 @@ const newCarPost = (req, res) => {
       status: newVehicle.status,
     },
   });
+
+
+  }catch(ex){
+    return res.status(400).json({
+        status:400,
+        error:"Please contact the administrator"
+    });
+  }
 };
 
 export default newCarPost;

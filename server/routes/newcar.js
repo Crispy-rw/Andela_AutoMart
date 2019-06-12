@@ -19,4 +19,7 @@ router.get('/:id/',auth, ViewSingleCar);
 
 router.get('/',auth,viewAllUnsold);
 
+router.delete('/:id/',auth,()=>{
+    
+})
 export default router;

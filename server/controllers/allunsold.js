@@ -12,6 +12,14 @@ const viewAllUnsold = (req, res) => {
         });
     }
 
+    if(req.user.is_admin){
+        return res.status(200).json({
+            data: {
+                cars
+            }
+        });
+    }
+
 
     if(req.query.min_price == undefined && req.query.max_price == undefined){
      
