@@ -17,15 +17,6 @@ const newCarPost = (req, res) => {
   }
 
 
-  const realUser = users.find(user => user.id === req.user.id);
-
-  if (!realUser) {
-    return res.status(400).json({
-      status: 400,
-      error: 'Unauthorized access',
-    });
-  }
-
   var _id = 0;
   if(carPost.length == 0)  _id = 1;
   else  _id = parseInt(carPost.length + 1, 10);
@@ -49,7 +40,7 @@ const newCarPost = (req, res) => {
     status: 201,
     data: {
       id: newVehicle.id,
-      email: realUser.email,
+      email: req.user.email,
       created_on: moment().format('LL'),
       manufacturer: newVehicle.manufacturer,
       model: newVehicle.model,

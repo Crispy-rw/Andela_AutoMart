@@ -32,9 +32,9 @@ const markStatus = (req, res) => {
     }
 
     if(checkCar.owner !== parseInt(req.user.id)){
-        return res.status(400).json({
+        return res.status(403).json({
             status:401,
-            error: "Unauthorized Access"
+            error: "Access Forbidden"
         });
     }
 

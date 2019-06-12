@@ -28,7 +28,7 @@ const newPurchaseOrder = (req, res) => {
 
 
     const newOrder = {
-        id: parseInt(orders.length + 1,5),
+        id: parseInt(orders.length + 1,10),
         buyer:req.user.id,
         car_id:req.body.car_id,
         amount: req.body.amount,
