@@ -4,7 +4,7 @@ import Joi from 'joi';
 const updateCarPosted = {
     validation(pricePro) {
         const updateCarPrice = {
-            new_price: Joi.number().integer().required()
+            new_price: Joi.number().positive().min(1).max(999999999999)
         }
         return Joi.validate(pricePro,updateCarPrice);
     }
