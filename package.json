@@ -4,7 +4,7 @@
   "description": "Auto_challeng_2",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --timeout 10000 --exit ./test/*/*.js || true",
     "start": "nodemon --exec babel-node ./server/server.js"
   },
   "repository": {
@@ -31,12 +31,14 @@
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.1.4",
     "moment": "^2.24.0",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "nyc": "^14.1.1"
   }
 }

@@ -23,3 +23,5 @@ app.use('/api/v1/order',newOrder);
 const port = process.env.PORT || 5101;
 
 app.listen(port, () => { console.log(`Port Connected to: ${port}`); });
+
+export default app;
