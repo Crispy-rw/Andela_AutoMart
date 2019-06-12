@@ -14,6 +14,7 @@ const viewAllUnsold = (req, res) => {
 
     if(req.user.is_admin){
         return res.status(200).json({
+            status:200,
             data: {
                 cars
             }

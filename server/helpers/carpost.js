@@ -5,11 +5,11 @@ const carpost = {
   validation(newCarPost) {
     const carPostValidation = {
 
-      state: Joi.string().valid('new', 'used').required(),
+      state: Joi.string().valid('new', 'used').required().trim(),
       price: Joi.number().positive().min(1).max(9999999),
-      manufacturer: Joi.string().required(),
-      model: Joi.string().required(),
-      bodyType: Joi.string().required(),
+      manufacturer: Joi.string().required().trim(),
+      model: Joi.string().required().trim(),
+      bodyType: Joi.string().required().trim(),
 
     };
 

@@ -47,6 +47,7 @@ const userLogin = (req, res) => {
     last_name: checkUser.last_name,
     email: checkUser.email,
     address: checkUser.address,
+    is_admin:checkUser.is_admin
   };
 
 

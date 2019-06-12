@@ -26,9 +26,9 @@ const newPostedPrice = (req, res) => {
 
 
     if(checkPostedOrder.owner !== req.user.id){
-        return res.status(400).json({
+        return res.status(403).json({
             status:400,
-            error: "Unauthorized access"
+            error: "Access Forbidden"
         });
     }
 
