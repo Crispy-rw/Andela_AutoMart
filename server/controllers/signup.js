@@ -40,6 +40,7 @@ const signup = (req, res) => {
     last_name: req.body.last_name,
     email: req.body.email,
     address: req.body.address,
+    is_admin:req.body.is_admin
   };
 
   const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
@@ -54,10 +55,10 @@ const signup = (req, res) => {
     email: req.body.email,
     password,
     address: req.body.address,
+    is_admin:req.body.is_admin
   };
 
   users.push(newUser);
-
 
   res.status(201).json({
     status: 201,
@@ -67,8 +68,8 @@ const signup = (req, res) => {
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       email: req.body.email,
-      address: req.body.address
-
+      address: req.body.address,
+      is_admin:newUser.is_admin
     },
   });
 };

@@ -14,6 +14,8 @@ const newPurchaseOrder = (req, res) => {
          });
     }
 
+
+
     const __id = parseInt(req.body.car_id);
 
     const checkCar = cars.find(o => o.id == __id );
@@ -23,6 +25,13 @@ const newPurchaseOrder = (req, res) => {
             return res.status(400).json({
                 status:400,
                 error: "Vehicle not found"
+            });
+        }
+
+        if(checkCar.owner == req.user.id){
+            return res.status(400).json({
+                status:400,
+                error:"You cant order your own car"
             });
         }
 

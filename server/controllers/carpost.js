@@ -5,8 +5,7 @@ import carPost from '../models/car';
 
 
 const newCarPost = (req, res) => {
-  try{
-
+  
     const { error } = carValidation.validation(req.body);
 
   if (error) {
@@ -51,12 +50,6 @@ const newCarPost = (req, res) => {
   });
 
 
-  }catch(ex){
-    return res.status(400).json({
-        status:400,
-        error:"Please contact the administrator"
-    });
-  }
 };
 
 export default newCarPost;
