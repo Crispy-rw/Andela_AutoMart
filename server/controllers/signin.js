@@ -18,27 +18,23 @@ const userLogin = (req, res) => {
     return;
   }
 
-
   const checkUser = users.find(user => user.email === req.body.email);
 
   if (!checkUser) {
-    res.status(400).json({
+    return res.status(400).json({
       status: 400,
       error: 'Email or password does not exist',
 
     });
-
-    return;
   }
 
   const checkPassword = bcrypt.compareSync(req.body.password.trim(), checkUser.password);
+
   if (!checkPassword) {
-    res.status(400).json({
+    return res.status(400).json({
       status: 400,
       error: 'Email or password does not exist',
     });
-
-    return;
   }
 
   const loginPayload = {
@@ -53,13 +49,11 @@ const userLogin = (req, res) => {
 
   const token = jwt.sign(loginPayload, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
 
-  const id = parseInt(users.length + 1, 10);
-
   res.status(200).json({
     status: 200,
     data: {
       token,
-      id,
+      id:checkUser.id,
       first_name: checkUser.first_name,
       last_name: checkUser.last_name,
       email: checkUser.email,

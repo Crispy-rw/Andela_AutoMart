@@ -3,10 +3,10 @@
 const users = [
                 {
                     id:1,
-                    email: 'crispy@gmail.com',
                     first_name: 'crispy',
                     last_name: 'nshimyumukiza',
-                    password: 'kigali1234',
+                    email: 'crispy@gmail.com',
+                    password: '$2b$10$89BK4gc4BZwwcWLiNll87ujqkNZJq2NICdWAaZFiRkNgvhoB0Y2Sa',
                     address: 'Rwafnda',
                     is_admin: false
                 }
