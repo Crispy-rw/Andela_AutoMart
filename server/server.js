@@ -5,7 +5,7 @@ import signin from './routes/signin';
 import newCar from './routes/newcar';
 import newOrder from './routes/order';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDoc from 'swagger-node-express';
+import swaggerDoc from '../swagger.json';
 
 
 const app = express();
