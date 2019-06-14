@@ -5,7 +5,7 @@ import markSold from '../controllers/markasold';
 import updatePostedPrice from '../controllers/updatepostedprice';
 import ViewSingleCar from '../controllers/viewsinglecar';
 import viewAllUnsold from '../controllers/allunsold';
-import adminCheck from '../controllers/admindelete';
+import adminDelete from '../controllers/admindelete';
 
 
 const router = express.Router();
@@ -20,6 +20,15 @@ router.get('/:id/',auth, ViewSingleCar);
 
 router.get('/',auth,viewAllUnsold);
 
-router.delete('/:id/',auth,adminCheck);
+router.delete('/:id/',auth,adminDelete);
+
+router.post('*',(req, res)=>{
+
+    return res.status(404).json({
+        status:404,
+        error:"Not Found"
+    });
+
+});
 
 export default router;

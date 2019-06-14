@@ -2,7 +2,7 @@ import cars from '../models/car';
 
 const adminDelete = (req, res) => {
 
-    if(!req.user.is_admin){
+    if(req.user.is_admin === false){
         return res.status(403).json({
             status:403,
             error:"Forbidden Access,You are not admin"

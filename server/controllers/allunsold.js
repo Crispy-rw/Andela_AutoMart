@@ -12,7 +12,7 @@ const viewAllUnsold = (req, res) => {
         });
     }
 
-    if(req.user.is_admin){
+    if(req.user.is_admin === true){
         return res.status(200).json({
             status:200,
             data: {
@@ -22,7 +22,7 @@ const viewAllUnsold = (req, res) => {
     }
 
 
-    if(req.query.min_price == undefined && req.query.max_price == undefined){
+    if(req.query.min_price == undefined || req.query.max_price == undefined){
      
         const allUnsold = cars.filter(car => car.status === 'available');
 
