@@ -9,7 +9,7 @@
         "url": "https://opensource.org/licenses/MIT"
       }
     },
-    "host": "localhost:5101",
+    "host": "https://auto-mart-ch.herokuapp.com/",
     "basePath": "/api/v1",
     "tags": [
       {
@@ -115,7 +115,7 @@
           "description": "User(seller) can Post a car sale advert",
           "parameters": [
             {
-                "name":"Authorization",
+                "name":"x-auth-token",
                 "in": "header",
                 "description" :"The user token",
                 "required":true
@@ -158,7 +158,7 @@
           "description": "seller can mark a posted ad as sold",
           "parameters": [
             {
-              "name":"Authorization",
+              "name":"x-auth-token",
               "in": "header",
               "description" :"The user token",
               "required":true
@@ -209,7 +209,7 @@
           "description": "user can view a specific car",
           "parameters": [
             {
-                "name":"Authorization",
+                "name":"x-auth-token",
                 "in": "header",
                 "description" :"The user token",
                 "required":true
@@ -249,7 +249,7 @@
           "description": "user(seller) can delete the posted ad record",
           "parameters": [
             {
-                "name":"Authorization",
+                "name":"x-auth-token",
                 "in": "header",
                 "description" :"The user token",
                 "required":true
@@ -293,7 +293,7 @@
           ],
           "parameters": [
             {
-                "name":"Authorization",
+                "name":"x-auth-token",
                 "in": "header",
                 "description" :"The user token",
                 "required":true
@@ -327,7 +327,7 @@
           ],
           "parameters": [
               {
-                "name":"Authorization",
+                "name":"x-auth-token",
                 "in": "header",
                 "description" :"The user token",
                 "required":true
@@ -366,7 +366,7 @@
           "description": "Buyer can make purchase order",
           "parameters": [
             {
-                "name":"Authorization",
+                "name":"x-auth-token",
                 "in": "header",
                 "description" :"The user token",
                 "required":true
@@ -409,7 +409,7 @@
           "description": "Buyer can update the price of purchase order",
           "parameters": [
             {
-                "name":"Authorization",
+                "name":"x-auth-token",
                 "in": "header",
                 "description" :"The user token",
                 "required":true
@@ -463,7 +463,7 @@
           ],
           "parameters": [
             {
-                "name":"Authorization",
+                "name":"x-auth-token",
                 "in": "header",
                 "description" :"The user token",
                 "required":true
@@ -493,7 +493,7 @@
           }
         }
       },
-      "/cars?status=available&min_price=XXXValue​&max_price=XXXValue​": {
+      "/car?status=available&min_price=XXXValue​&max_price=XXXValue​": {
         "get": {
           "tags": [
             "Cars"
@@ -504,7 +504,7 @@
           ],
           "parameters": [
             {
-                "name":"Authorization",
+                "name":"x-auth-token",
                 "in": "header",
                 "description" :"The user token",
                 "required":true
@@ -542,74 +542,6 @@
               }
           }
         }
-      },
-      "/cars/available/used": {
-        "get": {
-          "tags": [
-            "Cars"
-          ],
-          "summary": "View all used unsold cars",
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-                "name":"Authorization",
-                "in": "header",
-                "description" :"The user token",
-                "required":true
-              
-              }
-          ],
-          "responses": {
-            "200": {
-                "description": "success: successfully retrieving used unsold cars"
-              },
-              "404": {
-                "description": "Error: no used unsold cars found"
-              },
-              "401": {
-                "description": "Error: this is when someone tries to retrieve used unsold cars when he is not authorized"
-              },
-              "500": {
-                "description": "Server Error"
-              }
-          }
-        }
-      },
-      "/cars/available/new": {
-        "get": {
-          "tags": [
-            "Cars"
-          ],
-          "summary": "View all new unsold cars",
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-                "name":"Authorization",
-                "in": "header",
-                "description" :"The user token",
-                "required":true
-              
-              }
-          ],
-          "responses": {
-            "200": {
-                "description": "success: successfully retrieving new unsold cars"
-              },
-              "404": {
-                "description": "Error: no new unsold cars found"
-              },
-              "401": {
-                "description": "Error: this is when someone tries to retrieve new unsold cars when he is not authorized"
-              },
-              "500": {
-                "description": "Server Error"
-              }
-          }
-        }
       }
     },
   
@@ -621,7 +553,7 @@
             "last_name",
             "email",
             "password",
-            "adress",
+            "address",
             "is_admin"
         ],
         "type": "object",
