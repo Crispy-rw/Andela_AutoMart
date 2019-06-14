@@ -17,7 +17,7 @@ Auto Mart,  can sell their cars or buy from trusted dealerships or private selle
 * Javascript
 
 ### GitHub Pages link for UI
-[AutoMart/UI link](https://crispy1996.github.ioAndela_AutoMart/UI)
+[AutoMart/UI link](https://crispy1996.github.io/Andela_AutoMart/UI)
 
 ---------------------------------------------------------------------
 
