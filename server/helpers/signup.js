@@ -9,7 +9,7 @@ const register = {
       last_name: Joi.string().min(2).max(20).required().trim(),
       email: Joi.string().email().required().trim(),
       password: Joi.string().min(8).max(12).required().trim(),
-      is_admin: Joi.boolean().strict().validate('true').required(),
+      is_admin: Joi.boolean().strict().required(),
       address: Joi.string().required().max(20).trim(),
     };
 
