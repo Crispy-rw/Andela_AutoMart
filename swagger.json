@@ -9,7 +9,6 @@
         "url": "https://opensource.org/licenses/MIT"
       }
     },
-    "host": "https://auto-mart-ch.herokuapp.com/",
     "basePath": "/api/v1",
     "tags": [
       {
