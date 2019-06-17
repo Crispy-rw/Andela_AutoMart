@@ -20,7 +20,7 @@ const newPostedPrice = (req, res) => {
     if(!checkPostedOrder){
         return res.status(400).json({
             status:400,
-            error: "Invalid Posted"
+            error: "Invalid car Posted"
         });
     }
 
