@@ -4,9 +4,11 @@ import jwt from 'jsonwebtoken';
 import { Pool } from 'pg';
 import loginValidation from '../helpers/signin';
 
+
 ENV.config();
 
 const userLogin = async (req, res) => {
+
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
   });
