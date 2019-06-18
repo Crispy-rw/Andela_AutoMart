@@ -6,7 +6,7 @@
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --timeout 10000 --exit ./test/*/*.js || true",
     "start": "nodemon --exec babel-node ./server/server.js",
-    "create_database": " babel-node ./server/helpers/db/malt.js",    
+    "create_database": " babel-node ./server/helpers/db/malt.js",
     "drop_table": " babel-node ./server/helpers/db/drop.js",
     "create_table": " babel-node ./server/helpers/db/db.js",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/crispy1996/Andela_AutoMart#readme",
   "devDependencies": {
     "babel-eslint": "^10.0.1",
+    "babel-polyfill": "^6.26.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.3"
