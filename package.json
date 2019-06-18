@@ -6,6 +6,9 @@
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --timeout 10000 --exit ./test/*/*.js || true",
     "start": "nodemon --exec babel-node ./server/server.js",
+    "create": " babel-node ./server/helpers/db/malt.js",    
+    "drop_table": " babel-node ./server/helpers/db/drop.js",
+    "create_table": " babel-node ./server/helpers/db/db.js",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm run test"
   },
@@ -39,10 +42,12 @@
     "express": "^4.17.1",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
+    "make-runnable": "^1.3.6",
     "mocha": "^6.1.4",
     "moment": "^2.24.0",
     "nodemon": "^1.19.1",
     "nyc": "^14.1.1",
+    "pg": "^7.11.0",
     "swagger-jsdoc": "^3.2.9",
     "swagger-node-express": "^2.1.3",
     "swagger-ui-express": "^4.0.6"
