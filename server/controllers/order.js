@@ -16,7 +16,6 @@ const newPurchaseOrder = async (req, res) => {
     }
 
 
-
     const car_id = parseInt(req.body.car_id);
 
     const checkCar = await pool.query("SELECT * from cars WHERE id = $1",[car_id]);
