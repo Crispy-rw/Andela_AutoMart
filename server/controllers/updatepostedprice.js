@@ -1,50 +1,51 @@
 import carPosted from '../models/car';
 import updatepostedprice from '../helpers/updatepostcarprice';
+import pool from '../helpers/db/pool';
 
 
-const newPostedPrice = (req, res) => {
+const newPostedPrice = async (req, res) => {
     const { error } = updatepostedprice.validation(req.body);
 
     if( error ) {
         return res.status(400).json({
             status: 400,
-            error: error.details[0].message
+            error: error.details[0].message.split('"').join(' ')
         });
     }
 
 
     const paramId = parseInt(req.params.id);
 
-    const checkPostedOrder = carPosted.find(posted => posted.id == paramId);
+    const checkPostedOrder = await pool.query("SELECT *from cars WHERE id = $1",[paramId]);
 
-    if(!checkPostedOrder){
-        return res.status(400).json({
-            status:400,
-            error: "Invalid car Posted"
+    if(!checkPostedOrder.rows.length){
+        return res.status(404).json({
+            status:404,
+            error: "Id not found for the car"
         });
     }
 
 
-    if(checkPostedOrder.owner !== req.user.id){
+    if(checkPostedOrder.rows[0].owner !== req.user.id){
         return res.status(403).json({
             status:403,
             error: "Access Forbidden"
         });
     }
 
-    checkPostedOrder.price = parseInt(req.body.new_price,10);
+    const saveNewPrice = await pool.query("UPDATE cars SET price = $2 WHERE id = $1 RETURNING price,id",[paramId,req.body.new_price]);
 
     return res.status(200).json({
         status:200,
         data:{
-            id:checkPostedOrder.id,
+            id: saveNewPrice.rows[0].id,
             email: req.user.email,
-            created_on: checkPostedOrder.created_on,
-            manufacturer: checkPostedOrder.manufacturer,
-            model: checkPostedOrder.model,
-            price: checkPostedOrder.price,
-            state: checkPostedOrder.state,
-            status: checkPostedOrder.status
+            created_on: checkPostedOrder.rows[0].created_on,
+            manufacturer: checkPostedOrder.rows[0].manufacturer,
+            model: checkPostedOrder.rows[0].model,
+            price: saveNewPrice.rows[0].price,
+            state: checkPostedOrder.rows[0].state,
+            status: checkPostedOrder.rows[0].status
         }
     });
 
