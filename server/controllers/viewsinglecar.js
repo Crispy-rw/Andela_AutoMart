@@ -1,41 +1,40 @@
-import cars from '../models/car';
+import pool from '../helpers/db/pool';
 
-
-const viewCar = (req, res) => {
+const viewCar = async (req, res) => {
 
     const paramId = parseInt(req.params.id);
 
-    const checkCar = cars.find(car => car.id === paramId);
+    const checkCar = await pool.query("SELECT * from cars WHERE id = $1",[paramId]);
 
-
-    if(!checkCar){
-        return res.status(400).json({
-            status:400,
-            error: "Invalid car Id"
+    if(!checkCar.rows.length){
+        return res.status(404).json({
+            status:404,
+            error: "Car not found"
         });
     }
 
 
-    if(checkCar.owner !== parseInt(req.user.id)){
-        return res.status(400).json({
-            status:400,
+    if(checkCar.rows[0].owner !== parseInt(req.user.id)){
+        return res.status(403).json({
+            status:403,
             error: " Unauthorized Access "
         });
     }
 
 
-    return res.status(400).json({
+    return res.status(200).json({
         status:200,
+        message:"Car found successfully",
         data:{
-            id:checkCar.id,
-            owner: checkCar.owner,
-            created_on: checkCar.created_on,
-            state: checkCar.state,
-            price: checkCar.price,
-            status: checkCar.status,
-            manifacturer: checkCar.manifacturer,
-            model: checkCar.model,
-            body_type:checkCar.body_type
+            id:checkCar.rows[0].id,
+            owner: checkCar.rows[0].owner,
+            created_on: checkCar.rows[0].created_on,
+            state: checkCar.rows[0].state,
+            price: checkCar.rows[0].price,
+            status: checkCar.rows[0].status,
+            manufacturer: checkCar.rows[0].manufacturer,
+            model: checkCar.rows[0].model,
+            body_type:checkCar.rows[0].body_type
         }
     });
 
