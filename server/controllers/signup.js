@@ -1,75 +1,71 @@
 import bcrypt from 'bcrypt';
 import ENV from 'dotenv';
 import jwt from 'jsonwebtoken';
+import { Pool } from 'pg';
 import userValidation from '../helpers/signup';
-import users from '../models/signup';
 
 
 ENV.config();
 
-const signup = (req, res) => {
+
+const signup = async (req, res) => {
+  const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+  });
+
   const { error } = userValidation.validation(req.body);
 
   if (error) {
-    res.status(400).json({
+    return res.status(400).json({
       status: 400,
-      error: error.details[0].message,
+      error: error.details[0].messagesplit('"').join(' '),
     });
-
-    return;
   }
 
-  const email = users.find(user => user.email === req.body.email);
+  const result = await pool.query('SELECT * from users where email = $1', [req.body.email]);
 
-  if (email) {
-    res.status(400).json({
-      status: 400,
-      error: ' Your email address has already been used.Please try another email ',
+  if (result.rows.length) {
+    return res.status(409).json({
+      status: 409,
+      error: 'Your email has already been used, Please Login',
     });
-
-    return;
   }
 
-  var _id = 0;
-  if(users.length == 0)  _id = 1;
-  else  _id = parseInt(users.length + 1, 10);
+
+  const password = bcrypt.hashSync(req.body.password, 10);
+
+  const values = [
+    req.body.first_name,
+    req.body.last_name,
+    req.body.email,
+    password,
+    req.body.address,
+    req.body.is_admin,
+  ];
+
+  const insertUser = await pool.query('INSERT INTO users(first_name, last_name,email, password, address, is_admin) VALUES($1, $2, $3, $4, $5, $6) RETURNING *', values);
+
 
   const payload = {
-    id:_id,
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    email: req.body.email,
-    address: req.body.address,
-    is_admin:req.body.is_admin
+    id: insertUser.rows[0].id,
+    email: insertUser.rows[0].email,
+    is_admin: insertUser.rows[0].is_admin,
   };
 
   const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
 
-  const password = bcrypt.hashSync(req.body.password, 10);
-
-  
-  const newUser = {
-    id:_id,
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    email: req.body.email,
-    password,
-    address: req.body.address,
-    is_admin:req.body.is_admin
-  };
-
-  users.push(newUser);
 
   res.status(201).json({
     status: 201,
+    message: ' User has been created successfully',
     data: {
       token,
-      id:_id,
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      email: req.body.email,
-      address: req.body.address,
-      is_admin:newUser.is_admin
+      id: insertUser.rows[0].id,
+      first_name: insertUser.rows[0].first_name,
+      last_name: insertUser.rows[0].last_name,
+      email: insertUser.rows[0].email,
+      address: insertUser.rows[0].address,
+      is_admin: insertUser.rows[0].is_admin,
     },
   });
 };

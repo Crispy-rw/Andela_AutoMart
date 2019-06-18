@@ -23,7 +23,7 @@ const createTable = () => {
                         email VARCHAR(100) UNIQUE NOT NULL,                        
                         password VARCHAR(100) NOT NULL,
                         address VARCHAR(100) NOT NULL,
-                        is_admin BOOLEAN NOT NULL
+                        is_admin BOOLEAN NOT NULL DEFAULT false
                       );
                     CREATE TABLE IF NOT EXISTS cars(
                       id SERIAL PRIMARY KEY,
