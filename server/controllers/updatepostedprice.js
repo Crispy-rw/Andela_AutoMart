@@ -1,7 +1,6 @@
-import carPosted from '../models/car';
 import updatepostedprice from '../helpers/updatepostcarprice';
 import pool from '../helpers/db/pool';
-
+ 
 
 const newPostedPrice = async (req, res) => {
     const { error } = updatepostedprice.validation(req.body);
@@ -37,6 +36,7 @@ const newPostedPrice = async (req, res) => {
 
     return res.status(200).json({
         status:200,
+        message:"Price updated successfully",
         data:{
             id: saveNewPrice.rows[0].id,
             email: req.user.email,

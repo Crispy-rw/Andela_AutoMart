@@ -1,34 +1,35 @@
 import orderValidation from '../helpers/order';
-import cars from '../models/car';
-import orders from '../models/orders';
+import pool from '../helpers/db/pool';
 
 
 
-const newPurchaseOrder = (req, res) => {
+
+const newPurchaseOrder = async (req, res) => {
+
     const { error } = orderValidation.validation(req.body);
 
     if( error ){
          return res.status(400).json({
                 status:400,
-                error: error.details[0].message
+                error: error.details[0].message.split('"').join(' ')
          });
     }
 
 
 
-    const __id = parseInt(req.body.car_id);
+    const car_id = parseInt(req.body.car_id);
 
-    const checkCar = cars.find(o => o.id == __id );
+    const checkCar = await pool.query("SELECT * from cars WHERE id = $1",[car_id]);
 
 
-        if( !checkCar ){
-            return res.status(400).json({
-                status:400,
+        if(!checkCar.rows.length){
+            return res.status(404).json({
+                status:404,
                 error: "Vehicle not found"
             });
         }
 
-        if(checkCar.owner == req.user.id){
+        if(checkCar.rows[0].owner == req.user.id){
             return res.status(400).json({
                 status:400,
                 error:"You cant order your own car"
@@ -36,23 +37,23 @@ const newPurchaseOrder = (req, res) => {
         }
 
 
-    const newOrder = {
-        id: parseInt(orders.length + 1,10),
-        buyer:req.user.id,
-        car_id:req.body.car_id,
-        amount: req.body.amount,
-        status: req.body.status,
-    }
+        const values = [
+            req.user.id,
+            req.body.car_id,
+            parseInt(req.body.amount,10),
+            "pending"
+        ]
  
-    orders.push(newOrder);
-    
+    const newOrder = await pool.query("INSERT INTO orders (buyer,car_id,amount,status) VALUES($1,$2,$3,$4) RETURNING * ",values);
+
     return res.status(200).json({
         status:200,
+        message:"Order created successfully",
         data:{
-            id: newOrder.id,
-            buyer: req.user.id,
-            car_id: req.body.car_id,
-            price: parseFloat(checkCar.price),
+            id: newOrder.rows[0].id,
+            buyer: newOrder.rows[0].buyer,
+            car_id: newOrder.rows[0].car_id,
+            price: parseFloat(checkCar.rows[0].price),
             price_offered: parseFloat(req.body.amount)
         }
     });   
