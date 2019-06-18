@@ -24,7 +24,7 @@ describe("user post a car ",() => {
             model: "2 doors",
             bodyType: "MiniBus"
         })
-        .end((_err, res) => {
+        .end((err, res) => {
 
             res.should.have.status(401);
             
