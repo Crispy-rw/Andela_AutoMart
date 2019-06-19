@@ -19,7 +19,7 @@ const viewAllUnsold = async (req, res) => {
 
         return res.status(200).json({
             status:200,
-            message:"Cars for admin found successfully",
+            message:"All cars requested by the admin found successfully",
             data: carsForAdmin.rows
         });
     }
