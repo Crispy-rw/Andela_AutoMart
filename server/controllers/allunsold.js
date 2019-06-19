@@ -1,34 +1,49 @@
-import cars from '../models/car';
 import statusValidation from '../helpers/viewunsold';
+import pool from '../helpers/db/pool';
 
 
-const viewAllUnsold = (req, res) => {
+const viewAllUnsold = async (req, res) => {
+
     const { error } = statusValidation.validation(req.query);
 
     if( error ){
         return res.status(400).json({
             status:400,
-            error: error.details[0].message
+            error: error.details[0].message.split('"').join(' ')
         });
     }
+
+    const carsForAdmin = await pool.query("SELECT * from cars");
 
     if(req.user.is_admin === true){
+
         return res.status(200).json({
             status:200,
-            data: {
-                cars
-            }
+            message:"Cars for admin found successfully",
+            data: carsForAdmin.rows
         });
     }
 
 
-    if(req.query.min_price == undefined || req.query.max_price == undefined){
+
+    if((req.query.min_price == undefined || req.query.max_price == undefined) && (req.user.is_admin === false && req.query.status == 'available')){
      
-        const allUnsold = cars.filter(car => car.status === 'available');
+        const UserAllUnsold = await pool.query("SELECT * from cars WHERE owner = $1 AND status = 'available'",[req.user.id]);
 
             return res.status(200).json({
                 status:200,
-                data:{ allUnsold }
+                message:"All cars that are available for this user was found successfully",
+                data: UserAllUnsold.rows 
+            });
+
+    }else if((req.query.min_price == undefined || req.query.max_price == undefined) && req.query.status == 'available'){
+
+        const AdminAllUnsold = await pool.query("SELECT * from cars WHERE status = 'available'",[req.user.id]);
+
+            return res.status(200).json({
+                status:200,
+                message:"All cars that are available for this user(Admin) was found successfully",
+                data: AdminAllUnsold.rows 
             });
 
     }
@@ -37,19 +52,12 @@ const viewAllUnsold = (req, res) => {
     const min_price = req.query.min_price;
     const max_price = req.query.max_price;
 
-    const selectedRange = [];
-       cars.forEach((item,index) =>{
-        
-         if((item.status === 'available') && (item.price > min_price && item.price < max_price)){
-            selectedRange.push(item);
-         }
-        });
+    const selectedRange = await pool.query("SELECT * from cars WHERE price >= $1 AND price <= $2 AND owner = $3",[min_price,max_price,req.user.id]);
 
     return res.status(200).json({
         status:200,
-        min_price: min_price,
-        max_price:max_price,
-        data:{ selectedRange }
+        message:`All cars within  ${min_price} and ${max_price} found successfully`,
+        data: selectedRange.rows 
     });
 
 
