@@ -1,56 +1,58 @@
-import cars from '../models/car';
 import soldValidation from '../helpers/marksold';
+import pool from  '../helpers/db/pool';
 
 
-const markStatus = (req, res) => {
+const markStatus = async (req, res) => {
     const { error } = soldValidation.validation(req.body);
 
 
     if( error ){
         return res.status(400).json({
             status:400,
-            erro:error.details[0].message
+            erro:error.details[0].message.split('"').join(' ')
         });
     }
 
     const paramIdSold = parseInt(req.params.id);
 
-    const checkCar = cars.find(car => car.id == paramIdSold);
+    const checkCar = await pool.query("SELECT * from cars WHERE id = $1",[paramIdSold]);
 
-    if( !checkCar ){
+    if( !checkCar.rows.length ){
         return res.status(400).json({
             status:400,
             error: "Car id does not exist"
         });
     }
 
-    if(checkCar.status == 'sold'){
+    if(checkCar.rows[0].status == 'sold'){
         return res.status(400).json({
             status: 400,
             error: "Car is already Sold"
         });
     }
 
-    if(checkCar.owner !== parseInt(req.user.id)){
+    if(checkCar.rows[0].owner !== parseInt(req.user.id)){
         return res.status(403).json({
-            status:401,
+            status:403,
             error: "Access Forbidden"
         });
     }
 
-    checkCar.status = "sold";
+    	const changeStatus = await pool.query("UPDATE cars SET status = 'sold' WHERE id = $1 RETURNING status",[paramIdSold]);
+
 
     return res.status(200).json({
         status:200,
+        message:"Car updated successful",
         data:{
-            id: parseInt(cars.length + 1,10),
+            id: checkCar.rows[0].id,
             email : req.user.email,
-            created_on : checkCar.created_on,
-            manufacturer : checkCar.manufacturer,
-            model : checkCar.model,
-            price : checkCar.price,
-            state : checkCar.state,
-            status : checkCar.status,
+            created_on : checkCar.rows[0].created_on,
+            manufacturer : checkCar.rows[0].manufacturer,
+            model : checkCar.rows[0].model,
+            price : checkCar.rows[0].price,
+            state : checkCar.rows[0].state,
+            status : changeStatus.rows[0].status,
         }
     });
 
