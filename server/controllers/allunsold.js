@@ -26,24 +26,14 @@ const viewAllUnsold = async (req, res) => {
 
 
 
-    if((req.query.min_price == undefined || req.query.max_price == undefined) && (req.user.is_admin === false && req.query.status == 'available')){
+    if((req.query.min_price == undefined || req.query.max_price == undefined) && (req.query.status == 'available')){
      
-        const UserAllUnsold = await pool.query("SELECT * from cars WHERE owner = $1 AND status = 'available'",[req.user.id]);
+        const UserAllUnsold = await pool.query("SELECT * from cars WHERE status = 'available'",[req.user.id]);
 
             return res.status(200).json({
                 status:200,
-                message:"All cars that are available for this user was found successfully",
+                message:"All cars that are available found successfully",
                 data: UserAllUnsold.rows 
-            });
-
-    }else if((req.query.min_price == undefined || req.query.max_price == undefined) && req.query.status == 'available'){
-
-        const AdminAllUnsold = await pool.query("SELECT * from cars WHERE status = 'available'",[req.user.id]);
-
-            return res.status(200).json({
-                status:200,
-                message:"All cars that are available for this user(Admin) was found successfully",
-                data: AdminAllUnsold.rows 
             });
 
     }
