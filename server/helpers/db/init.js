@@ -11,10 +11,8 @@ const createvalues = `INSERT INTO users (first_name,last_name,email,password,add
                 
       pool.query(createvalues)
       .then((res) => {
-        console.log("Initial table value created successfully");
         pool.end();
       })
       .catch((err) => {
-        console.log(err);
         pool.end();
       });                   

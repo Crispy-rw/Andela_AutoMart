@@ -4,11 +4,9 @@ import pool from './pool';
 
 	   pool.query(dropAll)
       .then((res) => {
-        console.log("TABLE DELETED SUCCESSFULLY");
         pool.end();
       })
       .catch((err) => {
-        console.log(err);
         pool.end();
       });
 
