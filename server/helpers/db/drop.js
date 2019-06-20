@@ -1,11 +1,10 @@
-const pool = require('./pool.js');
-   
+import pool from './pool';   
 
-  const dropAll = `DROP TABLE IF EXISTS users,cars,films,orders CASCADE`;
+  const dropAll = `DROP TABLE IF EXISTS users,cars,orders CASCADE`;
 
 	   pool.query(dropAll)
       .then((res) => {
-        console.log(res);
+        console.log("TABLE DELETED SUCCESSFULLY");
         pool.end();
       })
       .catch((err) => {

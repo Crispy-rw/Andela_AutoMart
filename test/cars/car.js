@@ -103,9 +103,14 @@ describe("user post a car ",() => {
 
 
 
+
+
+
+
+
 // test for updating the price
 
-  describe("user is updating a price of a car ",() => {
+  describe("user is updateing a price of a car ",() => {
 
     it("should not be able to update if not token provided",(done) => {
         chai.request(app)
@@ -113,7 +118,7 @@ describe("user post a car ",() => {
         .send({
             new_price: 209
         })
-        .end((err, res) => {
+        .end((_err, res) => {
             res.should.have.status(401);
             done();
         });
@@ -121,15 +126,10 @@ describe("user post a car ",() => {
 
     const payload = {
         id:1,
+        first_name: "crispy",
+        last_name: "nshimyu",
         email: "crispy@gmail.com",
-        is_admin:false
-    }
-
-
-    const adminPayload = {
-        id:1,
-        email: "admin@gmail.com",
-        is_admin:true
+        address: "Rwanda",
     }
 
     const token =  jwt.sign(payload, process.env.JWT_SECRET_KEY,{expiresIn:'1d'});
@@ -158,7 +158,7 @@ describe("user post a car ",() => {
         .send({
             new_price: 209
         })
-        .end((err, res) => {
+        .end((_err, res) => {
             res.should.have.status(404);
             res.should.be.an('object');
             res.body.should.have.property('status').eql(404);
@@ -168,30 +168,22 @@ describe("user post a car ",() => {
     });
 
 
-    const adminToken =  jwt.sign(adminPayload, process.env.JWT_SECRET_KEY,{expiresIn:'1d'});
 
-
-    it.only("should  be able to update if car is found and request is done by the owner ",(done) => {
+    it("should  be able to update if car is found and request is done by the owner ",(done) => {
         chai.request(app)
         .patch('/api/v1/car/1/price')
-        .set('x-auth-token',adminToken)
+        .set('x-auth-token',token)
         .send({
             new_price: 209
         })
-        .end((err, res) => {
-            console.log(res.body);
-            // res.should.have.status(200);
-            // res.should.be.an('object');
-            // res.body.should.have.property('status').eql(200);
-            // res.body.should.have.property('message');
-            // res.body.should.have.property('data');
+        .end((_err, res) => {
+            res.should.have.status(200);
+            res.should.be.an('object');
+            res.body.should.have.property('status').eql(200);
+            res.body.should.have.property('data');
             done();
         });
     });
-
-
-
-
 
     it("should not be able to update if car is found car but you are the owner",(done) => {
         chai.request(app)
@@ -246,6 +238,7 @@ describe("user post a car ",() => {
         last_name: "nshimyu",
         email: "crispy@gmail.com",
         address: "Rwanda",
+        is_admin:false
     }
 
     const token =  jwt.sign(payload, process.env.JWT_SECRET_KEY,{expiresIn:'1d'});
@@ -256,9 +249,9 @@ describe("user post a car ",() => {
         .set('x-auth-token',token)
         .send()
         .end((err, res) => {
-            res.should.have.status(400);
+            res.should.have.status(403);
             res.should.be.an('object');
-            res.should.have.property('status').eql(400);
+            res.should.have.property('status').eql(403);
             res.body.should.have.property('error');
             done();
         });
@@ -271,29 +264,13 @@ describe("user post a car ",() => {
         .set('x-auth-token',token)
         .send()
         .end((err, res) => {
-            res.should.have.status(400);
+            res.should.have.status(404);
             res.should.be.an('object');
-            res.body.should.have.property('status').eql(400);
+            res.body.should.have.property('status').eql(404);
             res.body.should.have.property('error');
             done();
         });
-    });
-
-
-
-    it("should  be able to view the car if you are the owner ",(done) => {
-        chai.request(app)
-        .patch('/api/v1/car/1/price')
-        .set('x-auth-token',token)
-        .send()
-        .end((err, res) => {
-            res.should.have.status(200);
-            res.should.be.an('object');
-            res.body.should.have.property('status').eql(200);
-            res.body.should.have.property('data');
-            done();
-        });
-    });
+    }); 
 
 
   });
@@ -398,7 +375,3 @@ describe("user post a car ",() => {
 
 
   });
-
-
-
-  

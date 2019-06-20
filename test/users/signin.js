@@ -66,7 +66,7 @@ chai.should();
         .post('/api/v1/auth/signin')
         .send({
             email: "crispy@gmail.com",
-            password: "kigali1234565776756756754"
+            password: "kigalfwer"
         })
         .end((err, res) => {
             res.should.have.status(404);

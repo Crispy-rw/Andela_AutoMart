@@ -34,7 +34,7 @@ import pool from './pool';
 
 	pool.query(createAll)
     .then((res) => {
-      console.log(res);
+      console.log("TABLE CREATEd SUCCESSFULLY");
       pool.end();
     })
     .catch((err) => {
