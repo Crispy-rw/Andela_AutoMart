@@ -4,8 +4,10 @@
   "description": "Auto_challeng_2",
   "main": "server.js",
   "scripts": {
-    "test": " SET NODE_ENV=test & npm run drop_table & SET NODE_ENV=test & npm run create_table & SET NODE_ENV=test & npm run init & SET NODE_ENV=test & nyc --reporter=html --reporter=text mocha --require @babel/register --timeout 10000 --exit ./test/*/*.js || true",
-    "start": " SET NODE_ENV=development & nodemon --exec babel-node ./server/server.js",
+    "test": " NODE_ENV=test && npm run drop_table && NODE_ENV=test && npm run create_table && NODE_ENV=test && npm run init && NODE_ENV=test && nyc --reporter=html --reporter=text mocha --require @babel/register  --exit ./test/*/*.js || true",
+    "start": " NODE_ENV=development && nodemon --exec babel-node ./server/server.js",
+    "test_local": " SET NODE_ENV=test & npm run drop_table & SET NODE_ENV=test & npm run create_table & SET NODE_ENV=test & npm run init & SET NODE_ENV=test & nyc --reporter=html --reporter=text mocha --require @babel/register  --exit ./test/*/*.js || true",
+    "start_local": " SET NODE_ENV=development & nodemon --exec babel-node ./server/server.js",
     "create_database": " node --require @babel/register ./server/helpers/db/malt.js",
     "drop_table": " node --require @babel/register ./server/helpers/db/drop.js",
     "create_table": " node --require @babel/register ./server/helpers/db/db.js",

@@ -1,9 +1,17 @@
 language: node_js
 node_js:
  - node
+
+services:
+  - postgresql
+
+before_install:
+  - psql -c 'create database test_malt' -U postgres
+
 cache:
  directories:
    - 'node_modules'
+
 install:
    - npm install
 
@@ -11,8 +19,10 @@ before_script:
  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
  - chmod +x ./cc-test-reporter
  - ./cc-test-reporter before-build
+
 script:
- - npm test
+ - npm run test
+ 
 after_script:
  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 after_success:
