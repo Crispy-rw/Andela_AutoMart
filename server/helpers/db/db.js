@@ -1,20 +1,7 @@
-const { Pool } = require('pg');
-const dotenv = require('dotenv');
+import pool from './pool';
 
-
-dotenv.config();
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL
-});
-
-pool.on('connect', () => {
-  console.log('connected to the db');
-});
 
    
-
-const createTable = () => {
 
   const createAll = `CREATE TABLE IF NOT EXISTS users(
                         id SERIAL PRIMARY KEY,
@@ -55,11 +42,7 @@ const createTable = () => {
       pool.end();
     });
 
-}
 
 
 
 require('make-runnable');
-
-
-export default createTable();

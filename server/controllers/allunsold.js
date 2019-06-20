@@ -28,7 +28,7 @@ const viewAllUnsold = async (req, res) => {
 
     if((req.query.min_price == undefined || req.query.max_price == undefined) && (req.query.status == 'available')){
      
-        const UserAllUnsold = await pool.query("SELECT * from cars WHERE status = 'available'",[req.user.id]);
+        const UserAllUnsold = await pool.query("SELECT * from cars WHERE status = 'available'");
 
             return res.status(200).json({
                 status:200,

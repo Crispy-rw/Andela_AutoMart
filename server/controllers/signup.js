@@ -3,6 +3,7 @@ import ENV from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { Pool } from 'pg';
 import userValidation from '../helpers/signup';
+import '@babel/polyfill';
 
 
 ENV.config();

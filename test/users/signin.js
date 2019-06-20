@@ -35,11 +35,11 @@ chai.should();
             password: "kigali12345"
         })
         .end((err, res) => {
-            res.should.have.status(400);
+            res.should.have.status(404);
             res.should.be.an('object');
-            res.should.have.property('status').eql(400);
+            res.should.have.property('status').eql(404);
             res.body.should.have.property('error');
-            res.body.should.have.status(400);
+            res.body.should.have.status(404);
             done();
         });
     });
@@ -52,11 +52,11 @@ chai.should();
             password: "kigali12"
         })
         .end((err, res) => {
-            res.should.have.status(400);
+            res.should.have.status(404);
             res.should.be.an('object');
-            res.should.have.property('status').eql(400);
+            res.should.have.property('status').eql(404);
             res.body.should.have.property('error');
-            res.body.should.have.status(400);
+            res.body.should.have.status(404);
             done();
         });
     });
@@ -69,11 +69,11 @@ chai.should();
             password: "kigali1234565776756756754"
         })
         .end((err, res) => {
-            res.should.have.status(400);
+            res.should.have.status(404);
             res.should.be.an('object');
-            res.should.have.property('status').eql(400);
+            res.should.have.property('status').eql(404);
             res.body.should.have.property('error');
-            res.body.should.have.status(400);
+            res.body.should.have.status(404);
             done();
         });
     });
