@@ -35,6 +35,15 @@ const newPurchaseOrder = async (req, res) => {
             });
         }
 
+        const checkOrder = await pool.query("SELECT * from orders WHERE car_id = $1 AND buyer = $2",[car_id,req.user.id]);
+
+        if(checkOrder.rows.length){
+           return res.status(400).json({
+                status:400,
+                error:"You have duplicate order"
+            }); 
+        }
+
 
         const values = [
             req.user.id,
