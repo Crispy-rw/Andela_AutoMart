@@ -3,15 +3,17 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Pool } from 'pg';
 import loginValidation from '../helpers/signin';
+import pool from  '../helpers/db/pool';
+
 
 
 ENV.config();
 
 const userLogin = async (req, res) => {
 
-  const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-  });
+  // const pool = new Pool({
+  //   connectionString: process.env.DATABASE_URL,
+  // });
 
 
   const { error } = loginValidation.validation(req.body);

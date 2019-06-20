@@ -3,15 +3,15 @@ import ENV from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { Pool } from 'pg';
 import userValidation from '../helpers/signup';
+import '@babel/polyfill';
+import pool from  '../helpers/db/pool';
 
 
 ENV.config();
 
 
 const signup = async (req, res) => {
-  const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-  });
+
 
   const { error } = userValidation.validation(req.body);
 

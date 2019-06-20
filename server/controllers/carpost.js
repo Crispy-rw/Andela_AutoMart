@@ -2,15 +2,11 @@ import moment from 'moment';
 import users from '../models/signup';
 import carValidation from '../helpers/carpost';
 import carPost from '../models/car';
-import { Pool } from 'pg';
-
+import pool from '../helpers/db/pool';
 
 
 const newCarPost = async (req, res) => {
 
-    const pool = new Pool({
-      connectionString: process.env.DATABASE_URL,
-    });
   
     const { error } = carValidation.validation(req.body);
 

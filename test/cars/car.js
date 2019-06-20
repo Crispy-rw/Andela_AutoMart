@@ -159,9 +159,9 @@ describe("user post a car ",() => {
             new_price: 209
         })
         .end((_err, res) => {
-            res.should.have.status(400);
+            res.should.have.status(404);
             res.should.be.an('object');
-            res.body.should.have.property('status').eql(400);
+            res.body.should.have.property('status').eql(404);
             res.body.should.have.property('error');
             done();
         });
@@ -238,6 +238,7 @@ describe("user post a car ",() => {
         last_name: "nshimyu",
         email: "crispy@gmail.com",
         address: "Rwanda",
+        is_admin:false
     }
 
     const token =  jwt.sign(payload, process.env.JWT_SECRET_KEY,{expiresIn:'1d'});
@@ -248,9 +249,9 @@ describe("user post a car ",() => {
         .set('x-auth-token',token)
         .send()
         .end((err, res) => {
-            res.should.have.status(400);
+            res.should.have.status(403);
             res.should.be.an('object');
-            res.should.have.property('status').eql(400);
+            res.should.have.property('status').eql(403);
             res.body.should.have.property('error');
             done();
         });
@@ -263,29 +264,13 @@ describe("user post a car ",() => {
         .set('x-auth-token',token)
         .send()
         .end((err, res) => {
-            res.should.have.status(400);
+            res.should.have.status(404);
             res.should.be.an('object');
-            res.body.should.have.property('status').eql(400);
+            res.body.should.have.property('status').eql(404);
             res.body.should.have.property('error');
             done();
         });
-    });
-
-
-
-    it("should  be able to view the car if you are the owner ",(done) => {
-        chai.request(app)
-        .patch('/api/v1/car/1/price')
-        .set('x-auth-token',token)
-        .send()
-        .end((err, res) => {
-            res.should.have.status(200);
-            res.should.be.an('object');
-            res.body.should.have.property('status').eql(200);
-            res.body.should.have.property('data');
-            done();
-        });
-    });
+    }); 
 
 
   });
@@ -390,7 +375,3 @@ describe("user post a car ",() => {
 
 
   });
-
-
-
-  
