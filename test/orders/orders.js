@@ -21,7 +21,7 @@ describe("user post a purchase order ",() => {
             amount: 2000,
             status: "pending"
         })
-        .end((_err, res) => {
+        .end((err, res) => {
 
             res.should.have.status(401);
             
@@ -46,10 +46,10 @@ describe("user post a purchase order ",() => {
         .send({
             buyer:2,
             car_id:1,
-            amount: 2000,
-            status: "pending"
+            amount: 2000
         })
-        .end((_err, res) => {
+        .end((err, res) => {
+
              res.should.have.status(200);
              res.should.have.status(200);
              res.should.be.an('object');
