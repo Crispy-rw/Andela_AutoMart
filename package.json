@@ -5,15 +5,15 @@
   "main": "server.js",
   "scripts": {
     "test": " NODE_ENV=test && npm run drop_table && NODE_ENV=test && npm run create_table && NODE_ENV=test && npm run init && NODE_ENV=test && nyc --reporter=html --reporter=text mocha --require @babel/register  --exit ./test/*/*.js || true",
-    "start": " NODE_ENV=development && nodemon --exec babel-node ./server/server.js",
+    "start": "npm run create_table && nodemon --exec babel-node ./server/server.js",
     "test_local": " SET NODE_ENV=test & npm run drop_table & SET NODE_ENV=test & npm run create_table & SET NODE_ENV=test & npm run init & SET NODE_ENV=test & nyc --reporter=html --reporter=text mocha --require @babel/register  --exit ./test/*/*.js || true",
-    "start_local": " SET NODE_ENV=development & npm run drop_table & SET NODE_ENV=development & npm run create_table & SET NODE_ENV=development & nodemon --exec babel-node ./server/server.js",
+    "dev_local": " SET NODE_ENV=development & npm run drop_table & SET NODE_ENV=development & npm run create_table & SET NODE_ENV=development & nodemon --exec babel-node ./server/server.js",
     "create_database": " node --require @babel/register ./server/helpers/db/malt.js",
     "drop_table": " node --require @babel/register ./server/helpers/db/drop.js",
     "create_table": " node --require @babel/register ./server/helpers/db/db.js",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm run test",
-    "init" : " node --require @babel/register ./server/helpers/db/init.js"
+    "init": " node --require @babel/register ./server/helpers/db/init.js"
   },
   "repository": {
     "type": "git",
@@ -41,9 +41,11 @@
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "cli": "^1.0.1",
     "coveralls": "^3.0.4",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
+    "heroku": "^7.25.0",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "make-runnable": "^1.3.6",
