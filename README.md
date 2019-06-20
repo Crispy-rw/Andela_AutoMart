@@ -79,6 +79,9 @@ Heroku
 ### Heroku link Example
 [AutoMart heroku link](https://auto-mart-ch.herokuapp.com)
 
+### SWAGGER DOCUMENTATION
+[API docs](auto-mart-ch.herokuapp.com/automart/)
+
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
