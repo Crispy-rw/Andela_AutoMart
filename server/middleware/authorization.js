@@ -7,7 +7,10 @@ const authorize = (req, res, next) => {
   const token = req.header('x-auth-token');
 
   if (!token) {
-    return res.status(401).send('Access denied. No token provided');
+    return res.status(401).json({
+      status:401,
+      error:"No token.Please provide your token"
+    })
   }
 
   try {
@@ -15,7 +18,10 @@ const authorize = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (ex) {
-    return res.status(400).send('Please contact the admin');
+    return res.status(400).json({
+      status:400,
+      error:"Please use a correct token"
+    })
   }
 };
 
